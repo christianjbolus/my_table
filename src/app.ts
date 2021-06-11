@@ -10,13 +10,6 @@ const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  session({
-    secret: 'QALfU1UiXWs499l',
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 app.post('/register', async (req: Request, res: Response) => {
   try {

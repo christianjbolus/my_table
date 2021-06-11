@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const express_session_1 = __importDefault(require("express-session"));
 const cors_1 = __importDefault(require("cors"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const api_1 = require("./api");
@@ -21,11 +20,6 @@ const PORT = process.env.PORT || 8080;
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(express_1.default.json());
-app.use(express_session_1.default({
-    secret: 'QALfU1UiXWs499l',
-    resave: false,
-    saveUninitialized: false,
-}));
 app.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
