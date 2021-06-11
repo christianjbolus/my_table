@@ -1,6 +1,6 @@
 import axios from 'axios';
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 const BASE_URL = 'https://api.airtable.com/v0/app21I9aDDq7taz3k/users';
 
