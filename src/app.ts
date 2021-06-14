@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from 'express';
-import session from 'express-session';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import { getAllUsers, createUser } from './api';
