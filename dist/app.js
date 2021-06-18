@@ -20,18 +20,15 @@ const PORT = process.env.PORT || 8080;
 const app = express_1.default();
 app.use(cors_1.default());
 app.use(express_1.default.json());
-app.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/register', isUsernameTaken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
         const hash = yield bcrypt_1.default.hash(password, 12);
-        const taken = yield isUserNameTaken(username);
-        if (taken)
-            throw new Error('Username taken');
         const newUser = yield api_1.createUser({ username, password: hash });
         res.send(newUser.id);
     }
     catch (err) {
-        res.send(err.message);
+        res.status(409).send(err.message);
     }
 }));
 app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,16 +41,10 @@ app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(user.id);
     }
     catch (err) {
-        res.send(err.message);
+        res.status(401).send(err.message);
     }
 }));
 app.listen(PORT, () => console.log('Server running'));
-function isUserNameTaken(username) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { records } = yield api_1.getAllUsers();
-        return records.some((record) => record.fields.username === username);
-    });
-}
 function findUser(username) {
     return __awaiter(this, void 0, void 0, function* () {
         const { records } = yield api_1.getAllUsers();
@@ -64,5 +55,16 @@ function findUser(username) {
         else {
             throw new Error('Username or password is incorrect');
         }
+    });
+}
+// REGISTER MIDDLEWARE
+function isUsernameTaken(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { username } = req.body;
+        const { records } = yield api_1.getAllUsers();
+        const taken = records.some((record) => record.fields.username === username);
+        if (taken)
+            return res.status(409).send('Username taken');
+        next();
     });
 }
