@@ -1,0 +1,47 @@
+.recipe-card {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recipe-img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.recipe-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .recipe-card {
+        flex-direction: row;
+        justify-content: stretch;
+    }
+
+    .recipe-img {
+        height: 300px;
+        width: 50%
+    }
+    .card-body {
+        width: 50%
+    }
+
+    .recipe-title {
+        font-size: 2rem;
+    }
+}

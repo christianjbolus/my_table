@@ -1,0 +1,40 @@
+.form-container {
+    background-color: #fff;
+    padding: 40px 0;
+    width: 95%;
+    max-width: 600px;
+    margin: 50px auto 60px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1)
+}
+
+.form {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.form-heading {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px
+}
+
+.err-message {
+    color: #e70000;
+    margin-bottom: 5px;
+}
+
+.validation {
+    color: #e70000;
+    display: block
+}
+
+.hidden {
+    display: none;
+}
+

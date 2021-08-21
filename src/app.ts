@@ -1,14 +1,8 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import { getAllUsers, createUser } from './api';
-
-// CUSTOM TYPE
-type Record = {
-  fields: {
-    username: string;
-  };
-};
+import { isUsernameTaken } from './middleware'
 
 const PORT = process.env.PORT || 8080;
 
@@ -43,8 +37,8 @@ app.post('/login', async (req: Request, res: Response) => {
 app.listen(PORT, () => console.log('Server running'));
 
 async function findUser(username: string) {
-  const { records } = await getAllUsers();
-  const foundUser = records.find((record: Record) => record.fields.username === username);
+  const { records: entries } = await getAllUsers();
+  const foundUser = entries.find((entry: Entry) => entry.fields.username === username);
   if (foundUser) {
     return foundUser;
   } else {
@@ -52,11 +46,3 @@ async function findUser(username: string) {
   }
 }
 
-// REGISTER MIDDLEWARE
-async function isUsernameTaken(req: Request, res: Response, next: NextFunction) {
-  const { username } = req.body;
-  const { records } = await getAllUsers();
-  const taken = records.some((record: Record) => record.fields.username === username);
-  if (taken) return res.status(409).send('Username taken');
-  next();
-}
