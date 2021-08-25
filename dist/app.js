@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const api_1 = require("./api");
-const middleware_1 = require("./middleware");
+const api_1 = require("./services/api");
+const middleware_1 = require("./middleware/middleware");
+const helpers_1 = require("./utils/helpers");
 const PORT = process.env.PORT || 8080;
 const app = express_1.default();
 app.use(cors_1.default());
@@ -35,7 +36,7 @@ app.post('/register', middleware_1.isUsernameTaken, (req, res) => __awaiter(void
 app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
-        const user = yield findUser(username);
+        const user = yield helpers_1.findUser(username);
         const isValidPassword = yield bcrypt_1.default.compare(password, user.fields.password);
         if (!isValidPassword)
             throw new Error('Username or password is incorrect');
@@ -46,23 +47,3 @@ app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 }));
 app.listen(PORT, () => console.log('Server running'));
-function findUser(username) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { records: entries } = yield api_1.getAllUsers();
-        const foundUser = entries.find((entry) => entry.fields.username === username);
-        if (foundUser) {
-            return foundUser;
-        }
-        else {
-            throw new Error('Username or password is incorrect');
-        }
-    });
-}
-// REGISTER MIDDLEWARE
-// async function isUsernameTaken(req: Request, res: Response, next: NextFunction) {
-//   const { username } = req.body;
-//   const { entries } = await getAllUsers();
-//   const taken = entries.some((entry: Entry) => entry.fields.username === username);
-//   if (taken) return res.status(409).send('Username taken');
-//   next();
-// }

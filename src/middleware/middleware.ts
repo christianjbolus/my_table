@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { getAllUsers } from './api'
+import { getAllUsers } from '../services/api'
 
 export async function isUsernameTaken(req: Request, res: Response, next: NextFunction) {
   const { username } = req.body;

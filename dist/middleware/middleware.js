@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isUsernameTaken = void 0;
-const api_1 = require("./api");
+const api_1 = require("../services/api");
 function isUsernameTaken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { username } = req.body;

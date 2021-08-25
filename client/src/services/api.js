@@ -5,6 +5,7 @@ const apiKey = process.env.REACT_APP_AIRTABLE_KEY;
 const URL = {
   RECIPE: 'https://api.airtable.com/v0/app21I9aDDq7taz3k/recipes',
   USER: 'https://api.airtable.com/v0/app21I9aDDq7taz3k/users',
+  // AUTH: 'https://polar-refuge-44382.herokuapp.com',
   AUTH: 'http://localhost:8080',
 };
 

@@ -1,8 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
-import { getAllUsers, createUser } from './api';
-import { isUsernameTaken } from './middleware'
+import { createUser } from './services/api';
+import { isUsernameTaken } from './middleware/middleware'
+import { findUser } from './utils/helpers'
 
 const PORT = process.env.PORT || 8080;
 
@@ -36,13 +37,4 @@ app.post('/login', async (req: Request, res: Response) => {
 
 app.listen(PORT, () => console.log('Server running'));
 
-async function findUser(username: string): Promise<Entry> {
-  const { records: entries } = await getAllUsers();
-  const foundUser = entries.find((entry: Entry) => entry.fields.username === username);
-  if (foundUser) {
-    return foundUser;
-  } else {
-    throw new Error('Username or password is incorrect');
-  }
-}
 
