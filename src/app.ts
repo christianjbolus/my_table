@@ -36,7 +36,7 @@ app.post('/login', async (req: Request, res: Response) => {
 
 app.listen(PORT, () => console.log('Server running'));
 
-async function findUser(username: string) {
+async function findUser(username: string): Promise<Entry> {
   const { records: entries } = await getAllUsers();
   const foundUser = entries.find((entry: Entry) => entry.fields.username === username);
   if (foundUser) {
