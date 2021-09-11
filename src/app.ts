@@ -18,7 +18,7 @@ app.post('/register', isUsernameTaken, async (req: Request, res: Response) => {
     const hash = await bcrypt.hash(password, 12);
     const newUser = await createUser({ username, password: hash });
     res.send(newUser.id);
-  } catch (err) {
+  } catch (err: any) {
     res.status(409).send(err.message);
   }
 });
@@ -30,7 +30,7 @@ app.post('/login', async (req: Request, res: Response) => {
     const isValidPassword = await bcrypt.compare(password, user.fields.password);
     if (!isValidPassword) throw new Error('Username or password is incorrect');
     res.send(user.id);
-  } catch (err) {
+  } catch (err: any) {
     res.status(401).send(err.message);
   }
 });
