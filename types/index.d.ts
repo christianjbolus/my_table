@@ -1,4 +1,4 @@
-interface Entry {
+export interface Entry {
   id: string
   fields: {
     username: string;
