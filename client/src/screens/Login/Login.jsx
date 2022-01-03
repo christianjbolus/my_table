@@ -11,6 +11,7 @@ function Login({ setToken }) {
   function handleChange(e) {
     const { name, value } = e.target;
     setUser(prevVal => ({ ...prevVal, [name]: value }));
+    setErrMessage('');
   }
 
   async function handleSubmit(e) {
