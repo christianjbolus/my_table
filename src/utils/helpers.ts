@@ -1,4 +1,5 @@
 import { getAllUsers } from '../services/api'
+import { Entry } from '../../types/index';
 
 export const findUser = async(username: string): Promise<Entry> => {
   const { records: entries } = await getAllUsers();
